@@ -1,5 +1,6 @@
 package ru.netology.ntlg_hw_springboot_rest.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.netology.ntlg_hw_springboot_rest.domain.Authorities;
 import ru.netology.ntlg_hw_springboot_rest.exception.InvalidCredentials;
@@ -11,6 +12,11 @@ import java.util.List;
 @Service
 public class AuthorizationService {
     UserRepository userRepository;
+
+    @Autowired
+    public AuthorizationService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public List<Authorities> getAuthorities(String user, String password) {
         if (isEmpty(user) || isEmpty(password)) {
