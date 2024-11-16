@@ -33,13 +33,13 @@ public class UserRepository {
         REPO.put(guest.getName(), guest);
     }
 
-    public List<Authorities> getUserAuthorities(String user, String password) {
-        if (!REPO.containsKey(user)) {
+    public List<Authorities> getUserAuthorities(User user) {
+        if (!REPO.containsKey(user.getName())) {
             throw new UnauthorizedUser("User with such name does not exist.");
         }
-        if (!REPO.get(user).getPassword().equals(password)) {
+        if (!REPO.get(user.getName()).getPassword().equals(user.getPassword())) {
             throw new InvalidCredentials("Incorrect password");
         }
-        return REPO.get(user).getAuthorities();
+        return REPO.get(user.getName()).getAuthorities();
     }
 }

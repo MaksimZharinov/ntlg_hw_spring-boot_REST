@@ -1,15 +1,16 @@
 package ru.netology.ntlg_hw_springboot_rest.contloller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.netology.ntlg_hw_springboot_rest.domain.Authorities;
 import ru.netology.ntlg_hw_springboot_rest.exception.InvalidCredentials;
 import ru.netology.ntlg_hw_springboot_rest.exception.UnauthorizedUser;
+import ru.netology.ntlg_hw_springboot_rest.model.User;
 import ru.netology.ntlg_hw_springboot_rest.service.AuthorizationService;
 
 import java.util.List;
@@ -24,9 +25,8 @@ public class AuthorizationController {
     }
 
     @GetMapping("/authorize")
-    public List<Authorities> getAuthorities(@RequestParam("user") String user,
-                                            @RequestParam("password") String password) {
-        return service.getAuthorities(user, password);
+    public List<Authorities> getAuthorities(@Valid User user) {
+        return service.getAuthorities(user);
     }
 
     @ExceptionHandler(InvalidCredentials.class)
